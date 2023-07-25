@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scientific Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    .calculator {
+      width: 300px;
+      margin: 20px auto;
+      padding: 10px;
+      background-color: #f9f9f9;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+    }
+
+    .calculator .display {
+      font-size: 24px;
+      text-align: right;
+      padding: 10px;
+      background-color: #e0e0e0;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      grid-column: span 4;
+    }
+
+    .calculator .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 5px;
+    }
+
+    .calculator button {
+      font-size: 18px;
+      padding: 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    .calculator button:hover {
+      background-color: #ddd;
+    }
+
+    .calculator button.clicked {
+      background-color: #ddd;
+    }
+
+    .calculator .operator {
+      background-color: #3498db;
+      color: #fff;
+    }
+
+    .calculator .number {
+      background-color: #95a5a6;
+      color: #fff;
+    }
+
+    .calculator .function {
+      background-color: #9b59b6;
+      color: #fff;
+    }
+
+    .calculator .special {
+      background-color: #e67e22;
+      color: #fff;
+    }
+
+    .calculator .clear {
+      background-color: #e74c3c;
+      color: #fff;
+      grid-column: span 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button class="function" onclick="appendToDisplay('sin(')">sin</button>
+      <button class="function" onclick="appendToDisplay('cos(')">cos</button>
+      <button class="function" onclick="appendToDisplay('tan(')">tan</button>
+      <button class="number" onclick="appendToDisplay('7')">7</button>
+      <button class="number" onclick="appendToDisplay('8')">8</button>
+      <button class="number" onclick="appendToDisplay('9')">9</button>
+      <button class="operator" onclick="appendToDisplay('/')">/</button>
+      <button class="number" onclick="appendToDisplay('4')">4</button>
+      <button class="number" onclick="appendToDisplay('5')">5</button>
+      <button class="number" onclick="appendToDisplay('6')">6</button>
+      <button class="operator" onclick="appendToDisplay('*')">x</button>
+      <button class="number" onclick="appendToDisplay('1')">1</button>
+      <button class="number" onclick="appendToDisplay('2')">2</button>
+      <button class="number" onclick="appendToDisplay('3')">3</button>
+      <button class="operator" onclick="appendToDisplay('-')">-</button>
+      <button class="special" onclick="appendToDisplay('Math.PI')">π</button>
+      <button class="number" onclick="appendToDisplay('0')">0</button>
+      <button class="special" onclick="appendToDisplay('.')">.</button>
+      <button class="operator" onclick="appendToDisplay('+')">+</button>
+      <button class="special" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    function clearDisplay() {
+      document.getElementById('display').innerText = '0';
+    }
+
+    function appendToDisplay(value) {
+      const display = document.getElementById('display');
+      if (display.innerText === '0') {
+        display.innerText = value;
+      } else {
+        display.innerText += value;
+      }
+    }
+
+    function calculate() {
+      const display = document.getElementById('display');
+      try {
+        display.innerText = eval(display.innerText);
+      } catch (error) {
+        display.innerText = 'Error';
+      }
+    }
+
+    // Add transition effect on button click
+    const buttons = document.querySelectorAll('.calculator button');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        button.classList.add('clicked');
+        setTimeout(() => {
+          button.classList.remove('clicked');
+        }, 200);
+      });
+    });
+  </script>
+</body>
+</html>
